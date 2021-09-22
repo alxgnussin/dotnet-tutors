@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Tutors.Models;
+using Tutors.Services;
 
 namespace Tutors
 {
@@ -24,6 +20,7 @@ namespace Tutors
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<DataService>();
             string connection = Configuration.GetConnectionString("DBConnection");
             services.AddDbContext<DataBase>(options => options.UseNpgsql(connection));
         }
