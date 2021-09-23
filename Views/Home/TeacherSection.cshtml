@@ -7,7 +7,7 @@
                 <p class="float-right">Рейтинг: @Model.Rating Ставка: @Model.Price / час</p>
                 <h2 class="h4">@Model.Name</h2>
                 <p>@Model.About.Substring(0, 50) ...</p>
-                <a href="profile.html" class="btn btn-outline-primary btn-sm mr-3 mb-2">Показать информацию и расписание</a>
+                <a href='@Url.Action("Profile", new { id = Model.Id })' class="btn btn-outline-primary btn-sm mr-3 mb-2">Показать информацию и расписание</a>
 
             </div>
         </div>
