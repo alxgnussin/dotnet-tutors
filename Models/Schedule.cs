@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tutors.Models
@@ -14,5 +15,8 @@ namespace Tutors.Models
         [ForeignKey("TeacherId")]
         public Teacher Teacher { get; set; }
         public int TeacherId { get; set; }
+
+        [InverseProperty("Schedule")]
+        public List<Booking> Booking { get; set; }
     }
 }

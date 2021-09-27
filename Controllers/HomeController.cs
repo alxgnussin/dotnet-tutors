@@ -2,13 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Tutors.Forms;
 using Tutors.Models;
 using Tutors.Services;
 
 namespace Tutors.Controllers
 {
+    [Route("home")]
     public class HomeController : Controller
     {
         private DataService _dataService;
@@ -16,6 +16,9 @@ namespace Tutors.Controllers
         {
             _dataService = dataService;
         }
+
+        [HttpGet]
+        [Route("/")]
         public IActionResult Index()
         {
             Random rng = new Random();
@@ -28,7 +31,8 @@ namespace Tutors.Controllers
             return View(result);
         }
 
-        [Route("home/profile/{id}")]
+        [HttpGet]
+        [Route("profile/{id}")]
         public IActionResult Profile(int id)
         {
             Teacher teacher = _dataService.GetTeacher(id);
@@ -43,14 +47,36 @@ namespace Tutors.Controllers
             return View(teacherForm);
         }
 
-        [Route("home/all")]
-        public IActionResult All()
+        [HttpGet]
+        [Route("all")]
+        public IActionResult All([FromQuery] int? sorting)
         {
             List<Teacher> teachers = _dataService.GetTeachers();
+
+            if (sorting == 1)
+            {
+                teachers = teachers.OrderByDescending(x => x.Price).ToList();
+            }
+            else if (sorting == 2)
+            {
+                teachers = teachers.OrderBy(x => x.Price).ToList();
+            }
+            else if (sorting == 3)
+            {
+                teachers = teachers.OrderByDescending(x => x.Rating).ToList();
+            }
+            else
+            {
+                Random rng = new Random();
+                teachers = teachers.OrderBy(a => rng.Next()).ToList();
+            }
+
+
             return View(teachers);
         }
 
-        [Route("home/goal/{id}")]
+        [HttpGet]
+        [Route("goal/{id}")]
         public IActionResult Goal(string id)
         {
             var goal = _dataService.GetGoal(id);
@@ -61,6 +87,58 @@ namespace Tutors.Controllers
             };
             return View(result);
         }
-        
+
+        [HttpGet]
+        [Route("request")]
+        public IActionResult CreateRequest()
+        {
+            var goals = _dataService.AllGoals();
+            return View(goals);
+        }
+
+        [HttpPost]
+        [Route("request/submit")]
+        public IActionResult RequestSubmit([FromForm] RequestForm requestForm)
+        {
+            var request = new Request
+            {
+                GoalId = requestForm.Goal,
+                Time = requestForm.Time,
+                Name = requestForm.Name,
+                Phone = requestForm.Phone
+            };
+            _dataService.RequestCreate(request);
+
+            var result = new RequestDoneForm
+            {
+                GoalDescription = _dataService.GetGoal(requestForm.Goal)?.Description,
+                Time = requestForm.Time,
+                Name = requestForm.Name,
+                Phone = requestForm.Phone
+            };
+
+            return View("RequestDone", result);
+        }
+
+        [HttpGet]
+        [Route("booking")]
+        public IActionResult Booking(int scheduleId)
+        {
+            var result = new BookingForm
+            {
+                Schedule = _dataService.GetSchedule(scheduleId),
+                Teacher = _dataService.GetTeacher(_dataService.GetSchedule(scheduleId).TeacherId),
+            };
+            return View(result);
+        }
+
+        [HttpPost]
+        [Route("booking/submit")]
+        public IActionResult BookingSubmit([FromForm] BookingForm bookingForm)
+        {
+
+        }
+
+
     }
 }

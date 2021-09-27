@@ -31,13 +31,13 @@ namespace Tutors.Services
             List<Schedule> records = _db.Schedules.Where(x => x.TeacherId == teacherId).OrderBy(x => x.Time).ToList();
             List<ScheduleForm> result = new List<ScheduleForm>()
             {
-                new ScheduleForm { Day = "Понедельник", Times = records.Where(x => x.Day == "mon" && x.Available).Select(x => x.Time).ToList() },
-                new ScheduleForm { Day = "Вторник", Times = records.Where(x => x.Day == "tue" && x.Available).Select(x => x.Time).ToList() },
-                new ScheduleForm { Day = "Среда", Times = records.Where(x => x.Day == "wed" && x.Available).Select(x => x.Time).ToList() },
-                new ScheduleForm { Day = "Четверг", Times = records.Where(x => x.Day == "thu" && x.Available).Select(x => x.Time).ToList() },
-                new ScheduleForm { Day = "Пятница", Times = records.Where(x => x.Day == "fri" && x.Available).Select(x => x.Time).ToList() },
-                new ScheduleForm { Day = "Суббота", Times = records.Where(x => x.Day == "sat" && x.Available).Select(x => x.Time).ToList() },
-                new ScheduleForm { Day = "Воскресение", Times = records.Where(x => x.Day == "sun" && x.Available).Select(x => x.Time).ToList() },
+                new ScheduleForm { Day = "Понедельник", Times = records.Where(x => x.Day == "mon" && x.Available).ToList() },
+                new ScheduleForm { Day = "Вторник", Times = records.Where(x => x.Day == "tue" && x.Available).ToList() },
+                new ScheduleForm { Day = "Среда", Times = records.Where(x => x.Day == "wed" && x.Available).ToList() },
+                new ScheduleForm { Day = "Четверг", Times = records.Where(x => x.Day == "thu" && x.Available).ToList() },
+                new ScheduleForm { Day = "Пятница", Times = records.Where(x => x.Day == "fri" && x.Available).ToList() },
+                new ScheduleForm { Day = "Суббота", Times = records.Where(x => x.Day == "sat" && x.Available).ToList() },
+                new ScheduleForm { Day = "Воскресение", Times = records.Where(x => x.Day == "sun" && x.Available).ToList() },
             };
             return result;
         }
@@ -65,6 +65,18 @@ namespace Tutors.Services
             List<Goal> result = _db.Goals.ToList();
             return result;
         }
+
+        public void RequestCreate(Request request)
+        {
+            _db.Requests.Add(request);
+            _db.SaveChanges();
+        }
+
+        public Schedule GetSchedule(int id)
+        {
+            var result = _db.Schedules.Where(x => x.Id == id).FirstOrDefault();
+            return result;
+        }
     }
-    
+
 }

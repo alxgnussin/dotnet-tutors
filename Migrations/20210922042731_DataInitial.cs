@@ -33,7 +33,7 @@ namespace Tutors.Migrations
         {
             string teacherJson = File.ReadAllText("Data/Teachers.json");
             List<TeacherJson> teacherList = JsonSerializer.Deserialize<List<TeacherJson>>(teacherJson);
-            foreach(TeacherJson teacher in teacherList)
+            foreach (TeacherJson teacher in teacherList)
             {
                 mBuilder.InsertData("Teachers", new[] { "Id", "Name", "About", "Rating", "Picture", "Price" },
                     new object[]
@@ -45,7 +45,7 @@ namespace Tutors.Migrations
                         teacher.Picture,
                         teacher.Price,
                     });
-                
+
                 foreach (string key in teacher.Goals)
                 {
                     mBuilder.InsertData("TeacherGoals", new[] { "TeacherId", "GoalId" }, new object[] { teacher.Id, key });

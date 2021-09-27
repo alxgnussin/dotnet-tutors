@@ -29,14 +29,14 @@
                     <section class="available">
 
                         <h4 class="mb-4 mt-5">Записаться на пробный урок</h4>
-                        @foreach (ScheduleForm rec in Model.Schedules)
+                        @foreach (var rec in Model.Schedules)
                         {
                             <h6 class="mt-4">@rec.Day</h6>
                             @if(rec.Times.Count > 0)
                             {
-                                @foreach(string time in rec.Times)
+                                @foreach(var time in rec.Times)
                                 {
-                                    <a href="#" class="btn btn-outline-success mr-2">@time свободно</a>
+                                    <a href="@Url.Action("Booking", new {scheduleId = time.Id })" class="btn btn-outline-success mr-2">@time.Time свободно</a>
                                 }
                             } else
                             {

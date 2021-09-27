@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tutors.Models
 {
-   
+
     public class Goal
     {
         [Key]
@@ -13,5 +13,8 @@ namespace Tutors.Models
 
         [InverseProperty("Goal")]
         public List<TeacherGoal> Teachers { get; set; }
+
+        [InverseProperty("Goal")]
+        public List<Request> Goals { get; set; }
     }
 }

@@ -5,21 +5,14 @@
 @model List<Tutors.Models.Teacher>
 <main class="container mt-3">
     <h1 class="h1 text-center w-50 mx-auto mt-1 py-5 mb-4"><strong>Все преподаватели</strong></h1>
-
-
-
     <div class="row">
         <div class="col-12 col-lg-10 offset-lg-1 m-auto">
-
-
             <div class="card mb-4">
                 <div class="card-body align-right">
-
                     <p class="lead float-left d-inline-block mt-2 mb-0"><strong>@Model.Count преподавателей в базе</strong></p>
-
                     <form class="float-right d-inline-block">
                         <div class="form-inline">
-                            <select class="custom-select my-1 mr-2" id="inlineFormCustomSelectPref">
+                            <select class="custom-select my-1 mr-2" id="inlineFormCustomSelectPref" name="sorting">
                                 <option selected>В случайном порядке</option>
                                 <option value="3">Сначала лучшие по рейтингу</option>
                                 <option value="1">Сначала дорогие</option>
@@ -38,10 +31,6 @@
         </div>
     </div>
 
-    <h2 class="text-center mt-5 mb-3">Не нашли своего репетитора?</h2>
-    <p class="text-center mb-4">Расскажите, кто вам нужен и мы подберем его сами</p>
-    <div class="text-center pb-5">
-        <a href="request.html" class="btn btn-primary">Заказать подбор</a>
-    </div>
+    @Html.Partial("RequestSection")
 
 </main>

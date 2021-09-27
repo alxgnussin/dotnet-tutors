@@ -1,16 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+
 namespace Tutors.Models
 {
-    public class TeacherGoal
+    public class Request
     {
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("TeacherId")]
-        public Teacher Teacher { get; set; }
-        public int TeacherId { get; set; }
+        public string Time { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
 
         [ForeignKey("GoalId")]
         [Required]
