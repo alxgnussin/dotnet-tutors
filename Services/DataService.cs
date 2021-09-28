@@ -77,6 +77,14 @@ namespace Tutors.Services
             var result = _db.Schedules.Where(x => x.Id == id).FirstOrDefault();
             return result;
         }
-    }
 
+        public void BookingCreate(Booking booking)
+        {
+            var schedule = _db.Schedules.FirstOrDefault(x => x.Id == booking.ScheduleId);
+            schedule.Available = false;
+
+            _db.Bookings.Add(booking);
+            _db.SaveChanges();
+        }
+    }
 }

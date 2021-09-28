@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Tutors.Migrations
 {
-    public partial class Booking : Migration
+    public partial class Bookings : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,7 +32,7 @@ namespace Tutors.Migrations
                 oldNullable: true);
 
             migrationBuilder.CreateTable(
-                name: "Booking",
+                name: "Bookings",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -43,9 +43,9 @@ namespace Tutors.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Booking", x => x.Id);
+                    table.PrimaryKey("PK_Bookings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Booking_Schedules_ScheduleId",
+                        name: "FK_Bookings_Schedules_ScheduleId",
                         column: x => x.ScheduleId,
                         principalTable: "Schedules",
                         principalColumn: "Id",
@@ -53,8 +53,8 @@ namespace Tutors.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Booking_ScheduleId",
-                table: "Booking",
+                name: "IX_Bookings_ScheduleId",
+                table: "Bookings",
                 column: "ScheduleId");
 
             migrationBuilder.AddForeignKey(
@@ -85,7 +85,7 @@ namespace Tutors.Migrations
                 table: "TeacherGoals");
 
             migrationBuilder.DropTable(
-                name: "Booking");
+                name: "Bookings");
 
             migrationBuilder.AlterColumn<string>(
                 name: "GoalId",

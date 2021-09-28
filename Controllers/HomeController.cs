@@ -70,8 +70,6 @@ namespace Tutors.Controllers
                 Random rng = new Random();
                 teachers = teachers.OrderBy(a => rng.Next()).ToList();
             }
-
-
             return View(teachers);
         }
 
@@ -93,7 +91,7 @@ namespace Tutors.Controllers
         public IActionResult CreateRequest()
         {
             var goals = _dataService.AllGoals();
-            return View(goals);
+            return View("Request", goals);
         }
 
         [HttpPost]
@@ -122,23 +120,39 @@ namespace Tutors.Controllers
 
         [HttpGet]
         [Route("booking")]
-        public IActionResult Booking(int scheduleId)
+        public IActionResult CreateBooking([FromQuery] int scheduleId)
         {
             var result = new BookingForm
             {
                 Schedule = _dataService.GetSchedule(scheduleId),
                 Teacher = _dataService.GetTeacher(_dataService.GetSchedule(scheduleId).TeacherId),
             };
-            return View(result);
+            return View("Booking", result);
         }
 
         [HttpPost]
         [Route("booking/submit")]
-        public IActionResult BookingSubmit([FromForm] BookingForm bookingForm)
+        public IActionResult BookingSubmit([FromForm] BookingSubmitForm bookingSubmitForm)
         {
+            var booking = new Booking
+            {
+                Name = bookingSubmitForm.ClientName,
+                Phone = bookingSubmitForm.ClientPhone,
+                ScheduleId = bookingSubmitForm.ScheduleId
+            };
+            _dataService.BookingCreate(booking);
 
+            var schedule = _dataService.GetSchedule(booking.ScheduleId);
+
+            var result = new BookingDoneForm
+            {
+                Day = schedule.Day,
+                Time = schedule.Time,
+                Name = booking.Name,
+                Phone = booking.Phone
+            };
+
+            return View("BookingDone", result);
         }
-
-
     }
 }

@@ -12,5 +12,6 @@ namespace Tutors.Models
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<TeacherGoal> TeacherGoals { get; set; }
         public DbSet<Request> Requests { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
     }
 }

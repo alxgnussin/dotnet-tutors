@@ -36,7 +36,7 @@
                             {
                                 @foreach(var time in rec.Times)
                                 {
-                                    <a href="@Url.Action("Booking", new {scheduleId = time.Id })" class="btn btn-outline-success mr-2">@time.Time свободно</a>
+                                    <a href="@Url.Action("CreateBooking", new {scheduleId = time.Id })" class="btn btn-outline-success mr-2">@time.Time свободно</a>
                                 }
                             } else
                             {

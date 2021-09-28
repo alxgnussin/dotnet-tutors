@@ -9,8 +9,8 @@ using Tutors.Models;
 namespace Tutors.Migrations
 {
     [DbContext(typeof(DataBase))]
-    [Migration("20210927064237_Booking")]
-    partial class Booking
+    [Migration("20210928032237_Bookings")]
+    partial class Bookings
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,7 @@ namespace Tutors.Migrations
 
                     b.HasIndex("ScheduleId");
 
-                    b.ToTable("Booking");
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("Tutors.Models.Goal", b =>

@@ -38,7 +38,7 @@ namespace Tutors.Migrations
 
                     b.HasIndex("ScheduleId");
 
-                    b.ToTable("Booking");
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("Tutors.Models.Goal", b =>
