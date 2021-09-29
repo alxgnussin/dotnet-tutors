@@ -1,7 +1,7 @@
 @{ ViewData["Title"] = "Request";
                 Layout = "_MasterPage"; }
 
-@model List<Tutors.Models.Goal>
+@model Tutors.Forms.RequestForm
 <main class="container mt-5">
     <div class="col-12 col-sm-10 col-lg-6 offset-lg-3 offset-sm-1">
         <form action="@Url.Action("RequestSubmit")" method="POST" class="card mb-5">
@@ -11,55 +11,59 @@
             </div>
             <hr>
             <div class="card-body mx-3">
+                <div class="row" asp-validation-summary="All"></div>
                 <div class="row">
                     <div class="col">
                         <p>Какая цель занятий?</p>
-                        @foreach(var goal in Model)
+                        @foreach(var goal in ViewBag.Goals)
                         {
                             <div class="form-check ">
-                                <input type="radio" class="form-check-input" name="goal" value="@goal.Id">
-                                <label class="form-check-label" for="goal1">
+                                <input type="radio" class="form-check-input" asp-for="Goal" id="goal_@goal.Id" value="@goal.Id">
+                                <label class="form-check-label" for="goal_@goal.Id">
                                     @goal.Description
                                 </label>
                             </div>
                         }
-                        
+                        <span asp-validation-for="Goal"></span>
                     </div>
                     <div class="col">
                         <p>Сколько времени есть?</p>
                         <div class="form-check">
-                            <input type="radio" class="form-check-input" name="time" value="1-2" id="time1">
+                            <input type="radio" class="form-check-input" asp-for="Time" value="1-2" id="time1">
                             <label class="form-check-label" for="time1">
                                 1-2 часа в&nbsp;неделю
                             </label>
                         </div>
                         <div class="form-check">
-                            <input type="radio" class="form-check-input" name="time" value="3-5" id="time2">
+                            <input type="radio" class="form-check-input" asp-for="Time" value="3-5" id="time2">
                             <label class="form-check-label" for="time2">
                                 3-5 часов в&nbsp;неделю
                             </label>
                         </div>
                         <div class="form-check">
-                            <input type="radio" class="form-check-input" name="time" value="5-7" id="time3" checked>
+                            <input type="radio" class="form-check-input" asp-for="Time" value="5-7" id="time3" checked>
                             <label class="form-check-label" for="time3">
                                 5-7 часов в&nbsp;неделю
                             </label>
                         </div>
                         <div class="form-check">
-                            <input type="radio" class="form-check-input" name="time" value="7-10" id="time4">
+                            <input type="radio" class="form-check-input" asp-for="Time" value="7-10" id="time4">
                             <label class="form-check-label" for="time4">
                                 7-10 часов в&nbsp;неделю
                             </label>
                         </div>
+                        <span asp-validation-for="Time"></span>
                     </div>
                 </div>
             </div>
             <hr>
             <div class="card-body mx-3">
                 <label class="mb-1 mt-2">Вас зовут</label>
-                <input class="form-control" type="text" placeholder="" name="Name">
+                <input class="form-control" type="text" placeholder="" asp-for="Name">
+                <span asp-validation-for="Name"></span>
                 <label class="mb-1 mt-2">Ваш телефон</label>
-                <input class="form-control" type="text" placeholder="" name="Phone">
+                <input class="form-control" type="text" placeholder="" asp-for="Phone">
+                <span asp-validation-for="Phone"></span>
                 <input type="submit" class="btn btn-primary mt-4 mb-2" value="Найдите мне преподавателя">
             </div>
         </form>

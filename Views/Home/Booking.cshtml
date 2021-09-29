@@ -2,27 +2,28 @@
     Layout = "_MasterPage"; }
 
 @using Tutors.Forms
-@model Tutors.Forms.BookingForm
+@model Tutors.Forms.BookingSubmitForm
 <main class="container mt-3">
     <div class="row mt-5">
         <div class="col-10 col-md-6 offset-1 offset-md-3 mb-3">
-            <form action="@Url.Action("BookingSubmit")" method="POST"  class="card mb-3">
+            <form action="@Url.Action("BookingSubmit", new { scheduleId = ViewBag.Schedule.Id })" method="POST"  class="card mb-3">
                 <div class="card-body text-center pt-5">
-                    <img src="@Model.Teacher.Picture" class="mb-3" width="95" alt="">
-                    <h2 class="h5 card-title mt-2 mb-2">@Model.Teacher.Name</h2>
+                    <img src="@ViewBag.Teacher.Picture" class="mb-3" width="95" alt="">
+                    <h2 class="h5 card-title mt-2 mb-2">@ViewBag.Teacher.Name</h2>
                     <p class="my-1">Запись на пробный урок</p>
-                    <p class="my-1">@DayNames.Days[Model.Schedule.Day], @Model.Schedule.Time</p>
+                    <p class="my-1">@DayNames.Days[ViewBag.Schedule.Day], @ViewBag.Schedule.Time</p>
                 </div>
                 <hr />
                 <div class="card-body mx-3">
+                    <div class="text-danger" asp-validation-summary="All"></div>
                     
-                    <input class="form-control" type="hidden" name="ScheduleId" value="@Model.Schedule.Id">                        
+                    <input class="form-control" type="hidden" name="ScheduleId" value="@ViewBag.Schedule.Id">                        
 
                     <label class="mb-1 mt-2" for="ClientName">Вас зовут</label>
-                    <input class="form-control" type="text" name="ClientName" id="clientName">
+                    <input class="form-control" type="text" asp-for="ClientName" id="clientName">
 
                     <label class="mb-1 mt-2" for="ClientPhone">Ваш телефон</label>
-                    <input class="form-control" type="tel" name="ClientPhone" id="clientPhone">
+                    <input class="form-control" type="tel" asp-for="ClientPhone" id="clientPhone">
 
                     <input type="submit" class="btn btn-primary btn-block mt-4" value="Записаться на пробный урок">
 

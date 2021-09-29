@@ -91,13 +91,27 @@ namespace Tutors.Controllers
         public IActionResult CreateRequest()
         {
             var goals = _dataService.AllGoals();
-            return View("Request", goals);
+            var form = new RequestForm()
+            {
+                // Goals = goals
+            };
+
+            ViewBag.Goals = goals;
+
+            return View("Request", form);
         }
 
         [HttpPost]
         [Route("request/submit")]
         public IActionResult RequestSubmit([FromForm] RequestForm requestForm)
         {
+            if (!ModelState.IsValid)
+            {
+                var goals = _dataService.AllGoals();
+                ViewBag.Goals = goals;
+                return View("Request", requestForm);
+            }
+
             var request = new Request
             {
                 GoalId = requestForm.Goal,
@@ -115,25 +129,31 @@ namespace Tutors.Controllers
                 Phone = requestForm.Phone
             };
 
-            return View("RequestDone", result);
+            return View("RequestDone", result);            
         }
 
         [HttpGet]
-        [Route("booking")]
-        public IActionResult CreateBooking([FromQuery] int scheduleId)
+        [Route("booking/{scheduleId}")]
+        public IActionResult CreateBooking(int scheduleId)
         {
-            var result = new BookingForm
-            {
-                Schedule = _dataService.GetSchedule(scheduleId),
-                Teacher = _dataService.GetTeacher(_dataService.GetSchedule(scheduleId).TeacherId),
-            };
-            return View("Booking", result);
+            var form = new BookingSubmitForm() { };
+            ViewBag.Schedule = _dataService.GetSchedule(scheduleId);
+            ViewBag.Teacher = _dataService.GetTeacher(_dataService.GetSchedule(scheduleId).TeacherId);
+            return View("Booking", form);
         }
 
         [HttpPost]
-        [Route("booking/submit")]
-        public IActionResult BookingSubmit([FromForm] BookingSubmitForm bookingSubmitForm)
+        [Route("booking/{scheduleId}/submit")]
+        public IActionResult BookingSubmit(int scheduleId, [FromForm] BookingSubmitForm bookingSubmitForm)
         {
+            if (!ModelState.IsValid)
+            {
+                var form = new BookingSubmitForm() { };
+                ViewBag.Schedule = _dataService.GetSchedule(scheduleId);
+                ViewBag.Teacher = _dataService.GetTeacher(_dataService.GetSchedule(scheduleId).TeacherId);
+                return View("Booking", form);
+            }
+            
             var booking = new Booking
             {
                 Name = bookingSubmitForm.ClientName,
