@@ -129,7 +129,7 @@ namespace Tutors.Controllers
                 Phone = requestForm.Phone
             };
 
-            return View("RequestDone", result);            
+            return View("RequestDone", result);
         }
 
         [HttpGet]
@@ -153,7 +153,7 @@ namespace Tutors.Controllers
                 ViewBag.Teacher = _dataService.GetTeacher(_dataService.GetSchedule(scheduleId).TeacherId);
                 return View("Booking", form);
             }
-            
+
             var booking = new Booking
             {
                 Name = bookingSubmitForm.ClientName,

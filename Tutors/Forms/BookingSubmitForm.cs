@@ -6,7 +6,7 @@ namespace Tutors.Forms
     {
         public int ScheduleId { get; set; }
 
-        [Required(ErrorMessage="Please enter your name")]
+        [Required(ErrorMessage = "Please enter your name")]
         public string ClientName { get; set; }
 
         [Required(ErrorMessage = "Please enter your phone")]

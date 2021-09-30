@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Tutors.Models;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Tutors.Forms
 {
