@@ -1,34 +1,40 @@
 using Microsoft.AspNetCore.Mvc;
-using System;
+using Moq;
 using System.Collections.Generic;
 using System.Linq;
 using Tutors.Controllers;
 using Tutors.Models;
 using Tutors.Services;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace TutorsTest
 {
     public class UnitTest1
     {
-/*        private ITestOutputHelper output;
+        /*        private ITestOutputHelper output;
 
-        public UnitTest1(ITestOutputHelper output)
-        {
-            this.output = output;
-        }*/
+                public UnitTest1(ITestOutputHelper output)
+                {
+                    this.output = output;
+                }*/
 
         [Fact]
         public void TestCreateRequest()
         {
-            using var db = TestData.GetTestDataBase();
-            var dataService = new DataService(db);
-            using var controller = new HomeController(dataService);
+            // using var db = TestData.GetTestDataBase();
+            // var dataService = new DataService(db);
+            // using var controller = new HomeController(dataService);
+
+            var dataServiceMock = new Mock<IDataService>();
+            dataServiceMock.Setup(x => x.AllGoals()).Returns(new List<Goal>() { new Goal { Id = "g1", Description = "G1" } });
+
+            using var controller = new HomeController(dataServiceMock.Object);
 
             var result = controller.CreateRequest() as ViewResult;
             Assert.NotNull(result);
             Assert.Equal("Request", result.ViewName);
+
+            // dataServiceMock.Verify(x => x.AllGoals(), Times.Once);
 
             var goals = controller.ViewBag.Goals as List<Goal>;
             Assert.NotNull(goals);

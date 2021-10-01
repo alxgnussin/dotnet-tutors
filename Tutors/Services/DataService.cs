@@ -5,7 +5,7 @@ using Tutors.Models;
 
 namespace Tutors.Services
 {
-    public class DataService
+    public class DataService : IDataService
     {
         private DataBase _db;
 

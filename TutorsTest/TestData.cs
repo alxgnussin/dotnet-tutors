@@ -25,7 +25,7 @@ namespace TutorsTest
                 Price = 100
             });
             context.Schedules.Add(new Schedule { Id = 1, Day = "mon", Time = "12:00", Available = true, TeacherId = 1 });
-            context.TeacherGoals.Add(new TeacherGoal { Id = 1, GoalId = "g1", TeacherId = 1 });           
+            context.TeacherGoals.Add(new TeacherGoal { Id = 1, GoalId = "g1", TeacherId = 1 });
             context.SaveChanges();
 
             return context;

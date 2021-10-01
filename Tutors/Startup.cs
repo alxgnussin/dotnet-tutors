@@ -20,7 +20,7 @@ namespace Tutors
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddScoped<DataService>();
+            services.AddScoped<IDataService, DataService>();
             string connection = Configuration.GetConnectionString("DBConnection");
             services.AddDbContext<DataBase>(options => options.UseNpgsql(connection));
         }

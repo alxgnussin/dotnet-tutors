@@ -11,8 +11,8 @@ namespace Tutors.Controllers
     [Route("home")]
     public class HomeController : Controller
     {
-        private DataService _dataService;
-        public HomeController(DataService dataService)
+        private IDataService _dataService;
+        public HomeController(IDataService dataService)
         {
             _dataService = dataService;
         }

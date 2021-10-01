@@ -119,3 +119,5 @@ E:\Workplace\aspnet\Tutors\TutorsTest\obj\Debug\net5.0\TutorsTest.dll
 E:\Workplace\aspnet\Tutors\TutorsTest\obj\Debug\net5.0\ref\TutorsTest.dll
 E:\Workplace\aspnet\Tutors\TutorsTest\obj\Debug\net5.0\TutorsTest.pdb
 E:\Workplace\aspnet\Tutors\TutorsTest\obj\Debug\net5.0\TutorsTest.genruntimeconfig.cache
+E:\Workplace\aspnet\Tutors\TutorsTest\bin\Debug\net5.0\Castle.Core.dll
+E:\Workplace\aspnet\Tutors\TutorsTest\bin\Debug\net5.0\Moq.dll
